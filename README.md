@@ -9,7 +9,7 @@ This repository includes all code to reproduce the results from the manuscript n
    Install the reference data https://cf.10xgenomics.com/supp/cell-vdj/refdata-cellranger-vdj-GRCh38-alts-ensembl-7.1.0.tar.gz
 3. Install the R-package Platypus https://github.com/alexyermanos/Platypus
 
-### Input file
+### Input files
 Four publicly available datasets were used for this analysis, all CellRanger output files should be saved in .../PLM_Likelihoods/data/[dataset_name]/VDJ/[cellranger_output]. 
 1. The five mice samples from Neumeier et al. 2023 can be downloaded from the Platypus Database (https://alexyermanos.github.io/Platypus/PlatypusDB_index.html) with project ID “neumeier2021b”
 2. Individual1, from Horns et al. 2020 can be downloaded from the Platypus Database (https://alexyermanos.github.io/Platypus/PlatypusDB_index.html) with project ID “horns2020a”
