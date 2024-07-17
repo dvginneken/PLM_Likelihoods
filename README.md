@@ -1,4 +1,6 @@
 # PLM Likelihoods
+<img width="292" alt="image" src="https://github.com/user-attachments/assets/3eed26ce-0674-47d7-8229-8aed5b0b55aa">
+
 This repository includes all code to reproduce the results from the manuscript named "...".
 
 ### Set up environment
