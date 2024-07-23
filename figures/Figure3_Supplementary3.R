@@ -3,6 +3,7 @@ library(tidyr)
 library(dplyr)
 library(RColorBrewer)
 library(ggpubr)
+library(gridExtra)
 
 #Figure 3A
 #Read data
@@ -150,13 +151,6 @@ ggarrange(a, b, c, ncol = 3, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
 
 #Figure 3B
-library(ggplot2)
-library(ggpubr)
-library(Platypus)
-library(dplyr)
-library(RColorBrewer)
-library(gridExtra)
-
 #Read VDJ dataframes
 load("PLM_Likelihoods/data/OVA_V7/VDJ_PLL_OVA_V7.RData")
 vdj_ova <- vdj
