@@ -21,5 +21,5 @@ Four publicly available datasets were used for this analysis, all CellRanger out
 4. Individual3-5, from Kim et al. 2022 was downloaded from the NCBI Sequence Read Archive and processed with CellRanger VDJ pipeline (v8.0.0) with the script 0_CellRanger.sh
 
 ### Run code
-1. Run the bash scripts in order 0 to 7 for all calculations.
+1. Run the bash scripts in order 0 to 5 for all calculations.
 2. To reproduce the figures from the manuscript, use the code in the folder "figures".
