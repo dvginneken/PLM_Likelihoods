@@ -24,7 +24,7 @@ rm(af)
 #Source AntibodyForests function from https://github.com/alexyermanos/AntibodyForests
 source("~/Documents/GitHub/Platypus/R/AntibodyForests_plot.R")
 
-#Plot Figure 5A (left)
+#Plot Figure 5A
 pdf("PLM_Likelihoods/figures/Figure5/LineageTree_OVA.pdf")
 AntibodyForests_plot(af_ova,
                      sample = "S1",
@@ -39,7 +39,7 @@ AntibodyForests_plot(af_ova,
                      arrow.size = 0.5)
 dev.off()
 
-#Plot Figure 5A (right)
+#Plot Figure 5B
 pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/LineageTree_Kim.pdf")
 AntibodyForests_plot(af_kim,
                      sample = "SRR17729703",
@@ -144,12 +144,12 @@ p <- ggplot(distance_all, aes(x = germline, y = esm, colour = sample)) +
   xlab("Distance to germline") + ylab("ESM-1b Pseudolikelihood") +
   ggtitle(paste0("R\u00b2 Individuals = ", round(cor_human, digits = 2), ", R\u00b2 Mice = ", round(cor_mouse, digits = 2)))
 
-#Plot Figure 5B
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/DistanceGermline_main.pdf")
+#Plot Figure 4C
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/DistanceGermline_main.pdf")
 print(p)
 dev.off()
 
-#Supplementary Figure 7
+#Supplementary Figure 6
 #protbert
 cor_human <- cor.test(distance_human$germline, distance_human$protbert)$estimate
 cor_mouse <- cor.test(distance_ova$germline, distance_ova$protbert)$estimate
@@ -214,12 +214,12 @@ c <- ggplot(distance_all, aes(x = germline, y = sapiens, colour = sample)) +
   xlab("Distance to germline") + ylab("Sapiens Pseudolikelihood") +
   ggtitle(paste0("R\u00b2 Individuals = ", round(cor_human, digits = 2), ", R\u00b2 Mice = ", round(cor_mouse, digits = 2)))
 
-#Plot supplementary Figure 7
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/DistanceGermline_sup.pdf", width = 8, height = 6)
+#Plot supplementary Figure 6
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/DistanceGermline_sup.pdf", width = 8, height = 6)
 ggarrange(a, b, c, ncol = 3, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
 
-#Figure 5CD
+#Figure 4DE
 #Read data
 mut_ova <- read.csv("PLM_Likelihoods/data/OVA_V7/mutational_rank_table_OVA_V7_default.csv")
 mut_horns <- read.csv("PLM_Likelihoods/data/Horns/mutational_rank_table_horns2020a__VDJ_RAW_default.csv")
@@ -295,11 +295,11 @@ b <- ggplot(mut_all_ablang, aes(mean_sub_rank)) +
   ggtitle("Ablang")
 
 #Plot Figure 5C
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/Figure5C.pdf", width = 10, height = 4.5)
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/Figure4D.pdf", width = 10, height = 4.5)
 print(ggarrange(a, b, ncol = 2, common.legend = T, legend = "right"))
 dev.off()
 
-#D - quantification of mean likelihood rank per sample for each model
+#E - quantification of mean likelihood rank per sample for each model
 mut_all <- mut_all[mut_all$model != "",]
 mut_all_esm %>% group_by(sample) %>% mutate(average = mean(as.numeric(mean_sub_rank))) -> mut_all_esm
 mut_all_ablang %>% group_by(sample) %>% mutate(average = mean(as.numeric(mean_sub_rank))) -> mut_all_ablang
@@ -329,7 +329,7 @@ p <- ggplot(df, aes(y = average, x = model)) +
   ggtitle("Average Substitution Rank")
 
 #Plot Figure 5D
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/Figure5D.pdf", width = 7, height = 5.5)
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/Figure4E.pdf", width = 7, height = 5.5)
 print(p)
 dev.off()
 
@@ -456,12 +456,12 @@ o <- ggplot(df, aes(y = as.numeric(mean_sub_rank), x = group, color=group)) +
   ylim(0,22) +
   ggtitle("Ablang")
 
-#Plot Figure 5E
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/Figure5E.pdf", width = 7, height = 5.5)
+#Plot Figure 4F
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary7/Figure4F.pdf", width = 7, height = 5.5)
 ggarrange(p, o, nrow = 1, ncol = 2)
 dev.off()
 
-#Figure F - distribution of likelihood of the mutating and conserved residues along the edges
+#Figure G - distribution of likelihood of the mutating and conserved residues along the edges
 #esm original
 a <- ggplot(original_all_esm, aes(mean_sub_prob)) +
   #geom_histogram(color = "white", fill = "black", binwidth = 1) +
@@ -546,12 +546,12 @@ d <- ggplot(conserved_all_ablang, aes(mean_sub_prob)) +
   xlab("Conserved Residue Likelihood") + ylab("Number of edges") +
   ggtitle("Conserved - Ablang")
 
-#Plot Figure 5F
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/Figure5F.pdf", width = 12, height = 4.5)
+#Plot Figure 4G
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/Figure4G.pdf", width = 12, height = 4.5)
 ggarrange(a, b, c, d, ncol = 4, common.legend = T, legend = "right")
 dev.off()
 
-#Figure G - Significance boxplot of likelihood of the mutating and conserved residues
+#Figure H - Significance boxplot of likelihood of the mutating and conserved residues
 conserved_all_esm$group <- "conserved"
 original_all_esm$group <- "mutating"
 df <- rbind(conserved_all_esm[,-8], original_all_esm[-8])
@@ -604,8 +604,10 @@ o <- ggplot(df, aes(y = as.numeric(mean_sub_prob), x = group, color=group)) +
   ylim(0,1.05) +
   ggtitle("Ablang")
 
-#Plot Figure 5G
-pdf("PLM_Likelihoods/figures/Figure5_Supplementary7/Figure5F.pdf", width = 7, height = 5.5)
+#Plot Figure 4H
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/Figure4H.pdf", width = 7, height = 5.5)
 ggarrange(p, o, nrow = 1, ncol = 2)
 dev.off()
+
+
 

@@ -4,7 +4,7 @@ library(ggplot2)
 library(ggpubr)
 library(rstatix)
 
-#Supplementary Figure 8
+#Supplementary Figure 7
 #Load data
 load("PLM_Likelihoods/data/OVA_V7/AF_OVA_V7_mp_HC.RData") #af
 af_ova <- af
@@ -23,8 +23,8 @@ rm(af)
 #Source AntibodyForests function from https://github.com/alexyermanos/AntibodyForests
 source("~/Documents/GitHub/Platypus/R/AntibodyForests_plot.R")
 
-#Plot Supplementary Figure 8 A (left)
-pdf("PLM_Likelihoods/figures/Supplementary8/LineageTree_OVA.pdf")
+#Plot Supplementary Figure 7 A (left)
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/LineageTree_OVA.pdf")
 AntibodyForests_plot(af_ova,
                      sample = "S1",
                      clonotype = "clonotype4",
@@ -38,8 +38,8 @@ AntibodyForests_plot(af_ova,
                      show.inner.nodes = T)
 dev.off()
 
-#Plot Supplementary Figure 8 A (right)
-pdf("PLM_Likelihoods/figures/Supplementary8/LineageTree_Kim.pdf")
+#Plot Supplementary Figure 7 A (right)
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/LineageTree_Kim.pdf")
 AntibodyForests_plot(af_kim,
                      sample = "SRR17729703",
                      clonotype = "clonotype1",
@@ -221,8 +221,8 @@ b <- ggplot(distance_all, aes(x = germline, y = ablang, colour = sample)) +
   xlab("Distance to germline") + ylab("Ablang Pseudolikelihood") +
   ggtitle(paste0("Ablang\nR\u00b2 Individuals = ", round(cor_human, digits = 2), ", \nR\u00b2 Mice = ", round(cor_mouse, digits = 2)))
 
-#Plot Supplementary Figure 8 B
-pdf("PLM_Likelihoods/figures/Supplementary8/DistanceGermline_sup.pdf")
+#Plot Supplementary Figure 7B
+pdf("PLM_Likelihoods/figures/Figure4_Supplementary67/DistanceGermline_sup.pdf")
 ggarrange(d, a, b, c, ncol = 2, nrow = 2, common.legend = TRUE, legend = "right")
 dev.off()
 

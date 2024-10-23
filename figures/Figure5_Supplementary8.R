@@ -3,7 +3,7 @@ library(ggpubr)
 library(rstatix)
 library(dplyr)
 
-#Figure 6
+#Figure 5
 ##OVA
 #ESM
 df<-read.delim("PLM_Likelihoods/data/OVA_V7/evo-likelihoods/evo_likelihood_esm.csv",sep=",", header = T)
@@ -17,7 +17,7 @@ stat.test <- df %>%
   add_significance("p.adj")
 stat.test
 
-#Figure 6A (left)
+#Figure 5A (left)
 mouse_esm <- ggplot(df, aes(y = evo_likelihood, x = ELISA, color=ELISA)) +
   geom_boxplot() +
   scale_color_manual(values = c("Binder" = "#7a0177",
@@ -68,11 +68,11 @@ human_esm <- ggplot(df, aes(y = evo_likelihood, x = ELISA, color=ELISA)) +
   ggtitle("Human")
 
 #Plot Figure 6A
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/Binders_main.pdf")
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/Binders_main.pdf")
 ggarrange(mouse_esm, human_esm, ncol =2)
 dev.off()
 
-#Supplementary Figure 9A
+#Supplementary Figure 8A
 #ProtBERT
 df<-read.delim("PLM_Likelihoods/data/OVA_V7/evo-likelihoods/evo_likelihood_protbert.csv",sep=",", header = T)
 df$ELISA <- case_match(df$Bind..ELISA.signal.0.2.,
@@ -162,12 +162,12 @@ mouse_sapiens <- ggplot(df, aes(y = evo_likelihood, x = ELISA, color=ELISA)) +
               textsize = 5) +
   ggtitle("Sapiens")
 
-#Plot Supplementary Figure 9A
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/ELISA_mice_sup.pdf")
+#Plot Supplementary Figure 8A
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/ELISA_mice_sup.pdf")
 ggarrange(mouse_protbert, mouse_ablang, mouse_sapiens, ncol = 3, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
 
-#Supplementary Figure 9C
+#Supplementary Figure 8C
 #Kim
 #ProtBERT
 df<-read.delim("PLM_Likelihoods/data/Kim/evo-likelihoods/evo_likelihood_protbert.csv",sep=",", header = T)
@@ -259,12 +259,12 @@ human_sapiens <- ggplot(df, aes(y = evo_likelihood, x = ELISA, color=ELISA)) +
               textsize = 5) +
   ggtitle("Sapiens")
 
-#Plot Supplementary Figure 9C
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/ELISA_human_sup.pdf")
+#Plot Supplementary Figure 8C
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/ELISA_human_sup.pdf")
 ggarrange(human_protbert, human_ablang, human_sapiens, ncol = 3, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
 
-#Figure 6B
+#Figure 5B
 ##OVA
 #ESM
 df<-read.delim("PLM_Likelihoods/data/OVA_V7/evo-likelihoods/evo_likelihood_esm.csv",sep=",", header = T)
@@ -282,7 +282,7 @@ df$Mouse_clone_HC <- case_match(df$Mouse_clone_HC,
 cor_mouse <- cor.test(df$evo_likelihood, as.numeric(df$octet.affinity..nM.), method = "spearman")$estimate
 
 #Plot Figure 6B
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/Affinity_polyclonal_OVA_main.pdf")
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/Affinity_polyclonal_OVA_main.pdf")
 ggplot(df, aes(x = evo_likelihood, y = as.numeric(octet.affinity..nM.), color = as.factor(Mouse_clone_HC))) +
   geom_point(size=2) +
   scale_color_manual(values = c("Mouse1" = "#fcc5c0",
@@ -296,7 +296,7 @@ ggplot(df, aes(x = evo_likelihood, y = as.numeric(octet.affinity..nM.), color = 
   ggtitle(paste0("Mouse - Polyclonal, R\u00b2 = ", round(cor_mouse, digits = 3)))
 dev.off()
 
-#Supplementary Figure 9B
+#Supplementary Figure 8B
 #ProtBERT
 df<-read.delim("PLM_Likelihoods/data/OVA_V7/evo-likelihoods/evo_likelihood_protbert.csv",sep=",", header = T)
 df<-df[df$Bind..ELISA.signal.0.2. == "yes",]
@@ -375,8 +375,8 @@ sapiens <- ggplot(df, aes(x = evo_likelihood, y = as.numeric(octet.affinity..nM.
   xlab("Sapiens Pseudolikelihood") +
   ggtitle(paste0("Sapiens, R\u00b2 = ", round(cor_mouse, digits = 3)))
 
-#Plot Supplementary Figure 9B
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/Affinity_polyclonal_OVA_sup.pdf")
+#Plot Supplementary Figure 8B
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/Affinity_polyclonal_OVA_sup.pdf")
 ggarrange(protbert, ablang, sapiens, ncol = 3, common.legend = T, legend = "right")
 dev.off()
 
@@ -385,8 +385,8 @@ df_kim <- read.csv("PLM_Likelihoods/data/Kim/evo-likelihoods/evo_likelihood_esm.
 df_kim$donor <- gsub("368", "Participant", df_kim$donor)
 cor <- cor.test(df_kim$evo_likelihood, df_kim$K_D_nM, method = "spearman")$estimate
 
-#Plot Figure 6B
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/Affinity_polyclonal_human_main.pdf")
+#Plot Figure 5B
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/Affinity_polyclonal_human_main.pdf")
 ggplot(df_kim, aes(x=evo_likelihood, y=K_D_nM, color=donor)) +
   geom_point(size=2) +
   scale_color_manual(values = c('#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#006d2c','#00441b'),
@@ -438,18 +438,18 @@ sapiens <- ggplot(df_kim, aes(x=evo_likelihood, y=K_D_nM, color=donor)) +
   ggtitle(paste0("Sapiens, R\u00b2 = ", round(cor, digits = 3)))
 
 #Plot Supplementary Figure 9D
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/Affinity_polyclonal_human_sup.pdf")
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/Affinity_polyclonal_human_sup.pdf")
 ggarrange(protbert, ablang, sapiens, ncol = 3, common.legend = T, legend = "right")
 dev.off()
 
-#Figure 6 - Variant Tree
+#Figure 5 - Variant Tree
 load("PLM_Likelihoods/data/OVA_V7/AF_VariantTree.RData") #af
 
 #Source AntibodyForests function from https://github.com/alexyermanos/AntibodyForests
 source("~/Documents/GitHub/Platypus/R/AntibodyForests_plot.R")
 
-#Plot Figure 6D
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/LineageTree_pll.pdf")
+#Plot Figure 5D
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/LineageTree_pll.pdf")
 AntibodyForests_plot(af,
                      sample = "S1",
                      clonotype = "clonotype1",
@@ -460,8 +460,8 @@ AntibodyForests_plot(af,
                      color.legend.title = "Pseudolikelihood")
 dev.off()
 
-#Plot Figure 6E
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/LineageTree_affinity.pdf")
+#Plot Figure 5E
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/LineageTree_affinity.pdf")
 AntibodyForests_plot(af,
                      sample = "S1",
                      clonotype = "clonotype1",
@@ -473,7 +473,7 @@ AntibodyForests_plot(af,
                      color.legend.title = "Affinity (Kd)")
 dev.off()
 
-#Figure 6F - Affinity vs pseudolikelihood with distance to germline
+#Figure 5F - Affinity vs pseudolikelihood with distance to germline
 df <- read.csv("PLM_Likelihoods/data/OVA_V7/VariantTree/evo_likelihoods/evo_likelihood_esm.csv", header = T)
 cor <- cor.test(df$evo_likelihood, df$octet.affinity, method = "spearman")$estimate
 tree = af[["S1"]][["clonotype1"]][["igraph"]]
@@ -488,8 +488,8 @@ barcode = unlist(lapply(node_features,function(x){unique(x[["barcodes"]])[!is.na
 distance = data.frame("distance" = distance, "node" = rownames(distance), "barcode" = barcode)
 df <- left_join(df, distance, by = "barcode")
 
-#Plot Figure 6F
-pdf("PLM_Likelihoods/figures/Figure6_Supplementary9/Figure6F.pdf")
+#Plot Figure 5F
+pdf("PLM_Likelihoods/figures/Figure5_Supplementary8/Figure6F.pdf")
 ggplot(df, aes(x=evo_likelihood, y=octet.affinity, color=germline)) +
   geom_point(size=2) +
   scale_colour_gradient(low = "black", high = "orange",

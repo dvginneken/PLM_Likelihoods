@@ -344,7 +344,6 @@ dependencies:
       - datrie==0.8.2
       - docutils==0.20.1
       - dpath==2.1.6
-      - evolocity==1.0.1
       - fair-esm==2.0.0
       - fairseq==0.12.2
       - fastjsonschema==2.19.0

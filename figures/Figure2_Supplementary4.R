@@ -57,7 +57,7 @@ ggplot(df, aes(x=PLM, y=correlation, col=factor(sample))) +
   facet_wrap(~source)
 dev.off()
 
-#Supplementary Figure 3
+#Supplementary Figure 4
 #Read data
 df_ova <- read.csv("PLM_Likelihoods/data/OVA_V7/PLMCorrelation_chains.csv",header = TRUE, sep = ",")
 df_horns <- read.csv("PLM_Likelihoods/data/Horns/PLMCorrelation_chains.csv",header = TRUE, sep = ",")
@@ -146,11 +146,11 @@ c <- ggplot(df[df$source == "Full VDJ",], aes(x=PLM, y=correlation, col=factor(s
   xlab("PLM Comparison") + ylab("Correlation Coefficient") +
   facet_wrap(~chain) + ggtitle("Full VDJ")
 
-pdf("PLM_Likelihoods/figures/Figure3_Supplementary3/PLMcorrelation_sup.pdf", width = 8, height = 6)
+pdf("PLM_Likelihoods/figures/Figure2_Supplementary4/PLMcorrelation_sup.pdf", width = 8, height = 6)
 ggarrange(a, b, c, ncol = 3, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
 
-#Figure 3B
+#Figure 2B
 #Read VDJ dataframes
 load("PLM_Likelihoods/data/OVA_V7/VDJ_PLL_OVA_V7.RData")
 vdj_ova <- vdj
@@ -201,116 +201,6 @@ vdj_bruhn <- vdj_bruhn[!is.na(vdj_bruhn$VDJ_cgene),]
 vdj_human <- rbind(vdj_horns, vdj_bruhn, vdj_kim)
 vdj_all <- rbind(vdj_ova, vdj_human)
 
-#Set colors
-isotype_colors <- c("IgA" = "#fb6a4a",
-                    "IgE" = "#B452CD",
-                    "IgG" ="#74c476",
-                    "IgM" = "black",
-                    "IgD" = "#1874CD",
-                    "NA" = "grey")
-
-#Set isotypes
-vdj_ova$isotype <- case_match(vdj_ova$isotype,
-                              "IgG1" ~ "IgG",
-                              "IgG2" ~ "IgG",
-                              "IgG3" ~ "IgG",
-                              "IGHA" ~ "IgA",
-                              "IGHD" ~ "IgD",
-                              "IGHE" ~ "IgE",
-                              "IGHM" ~ "IgM")
-vdj_ova %>% arrange(factor(isotype, levels = c('IgM', 'IgG', 'IgA', 'IgE', 'IgD'))) -> vdj_ova
-vdj_human$isotype <- case_match(vdj_human$isotype,
-                                "IgG1" ~ "IgG",
-                                "IgG2" ~ "IgG",
-                                "IgG3" ~ "IgG",
-                                "IgG4" ~ "IgG",
-                                "IGHA" ~ "IgA",
-                                "IGHD" ~ "IgD",
-                                "IGHE" ~ "IgE",
-                                "IGHM" ~ "IgM",
-                                "IgA1" ~ "IgA",
-                                "IgA2" ~ "IgA")
-vdj_human %>% arrange(factor(isotype, levels = c('IgM', 'IgG', 'IgA', 'IgE', 'IgD'))) -> vdj_human
-
-#Plot mouse samples
-b <- ggplot(vdj_ova, aes(x=IGH_evo_likelihood_esm_full_VDJ, y=IGH_evo_likelihood_protbert_full_VDJ, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("ESM-1b Pseudolikelihood") + ylab("ProtBERT Pseudolikelihood") +
-  ggtitle("Full VDJ")
-a <- ggplot(vdj_ova, aes(x=IGH_evo_likelihood_esm_cdr3_only, y=IGH_evo_likelihood_protbert_cdr3_only, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("ESM-1b Pseudolikelihood") + ylab("ProtBERT Pseudolikelihood") +
-  ggtitle("CDR3 only")
-d <- ggplot(vdj_ova, aes(x=IGH_evo_likelihood_ablang_full_VDJ, y=IGH_evo_likelihood_sapiens_full_VDJ, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("Ablang Pseudolikelihood") + ylab("Sapiens Pseudolikelihood") +
-  ggtitle("Full VDJ")
-c <- ggplot(vdj_ova, aes(x=IGH_evo_likelihood_ablang_cdr3_only, y=IGH_evo_likelihood_sapiens_cdr3_only, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("Ablang Pseudolikelihood") + ylab("Sapiens Pseudolikelihood") +
-  ggtitle("CDR3 only")
-
-#Plot figure3B top
-pdf("PLM_Likelihoods/figures/Figure3_Supplementary3/Isotype_PLMcorrelation_mouse.pdf", width = 8, height = 6)
-ggarrange(a, b, c, d, ncol = 4, nrow = 1, common.legend = TRUE, legend = "right")
-dev.off()
-
-#Plot human samples
-b <- ggplot(vdj_human, aes(x=IGH_evo_likelihood_esm_full_VDJ, y=IGH_evo_likelihood_protbert_full_VDJ, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("ESM-1b Pseudolikelihood") + ylab("ProtBERT Pseudolikelihood") +
-  ggtitle("Full VDJ")
-a <- ggplot(vdj_human, aes(x=IGH_evo_likelihood_esm_cdr3_only, y=IGH_evo_likelihood_protbert_cdr3_only, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("ESM-1b Pseudolikelihood") + ylab("ProtBERT Pseudolikelihood") +
-  ggtitle("CDR3 only")
-d <- ggplot(vdj_human, aes(x=IGH_evo_likelihood_ablang_full_VDJ, y=IGH_evo_likelihood_sapiens_full_VDJ, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("Ablang Pseudolikelihood") + ylab("Sapiens Pseudolikelihood") +
-  ggtitle("Full VDJ")
-c <- ggplot(vdj_human, aes(x=IGH_evo_likelihood_ablang_cdr3_only, y=IGH_evo_likelihood_sapiens_cdr3_only, color=isotype)) +
-  geom_point() +
-  scale_color_manual(name = "Isotype", values = isotype_colors) +
-  guides(color = guide_legend(override.aes = list(size = 3))) +
-  theme_minimal() +
-  theme(text = element_text(size = 12)) +
-  xlab("Ablang Pseudolikelihood") + ylab("Sapiens Pseudolikelihood") +
-  ggtitle("CDR3 only")
-
-#Plot figure3B bottom
-pdf("PLM_Likelihoods/figures/Figure3_Supplementary3/Isotype_PLMcorrelation_human.pdf", width = 8, height = 6)
-ggarrange(a, b, c, d, ncol = 4, nrow = 1, common.legend = TRUE, legend = "right")
-dev.off()
-
-#Figure 3C
 #set colors
 vgene_colors <- c("IGHV1" = "darkred",
                   "IGHV2" = "cadetblue",
@@ -350,8 +240,8 @@ b1 <- ggplot(vdj_human, aes(x=IGH_evo_likelihood_ablang_full_VDJ, y=IGH_evo_like
   xlab("Ablang Pseudolikelihood") + ylab("Sapiens Pseudolikelihood") +
   ggtitle("Antibody-Specific PLMs")
 
-#Plot figure3C right
-pdf("PLM_Likelihoods/figures/Figure3_Supplementary3/Vgene_PLMcorrelation_human.pdf", width = 8, height = 6)
+#Plot figure2B right
+pdf("PLM_Likelihoods/figures/Figure2_Supplementary4/Vgene_PLMcorrelation_human.pdf", width = 8, height = 6)
 ggarrange(a1, b1, ncol = 2, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
 
@@ -377,7 +267,8 @@ b2 <- ggplot(vdj_ova, aes(x=IGH_evo_likelihood_ablang_full_VDJ, y=IGH_evo_likeli
   xlab("Ablang Pseudolikelihood") + ylab("Sapiens Pseudolikelihood") +
   ggtitle("Antibody-Specific PLMs")
 
-#Plot figure3C left
-pdf("PLM_Likelihoods/figures/Figure3_Supplementary3/Vgene_PLMcorrelation_mouse.pdf", width = 8, height = 6)
+#Plot figure2B left
+pdf("PLM_Likelihoods/figures/Figure2_Supplementary4/Vgene_PLMcorrelation_mouse.pdf", width = 8, height = 6)
 ggarrange(a2, b2, ncol = 2, nrow = 1, common.legend = TRUE, legend = "right")
 dev.off()
+
