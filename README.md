@@ -1,7 +1,7 @@
 # PLM Likelihoods
 <img width="292" alt="image" src="https://github.com/user-attachments/assets/3eed26ce-0674-47d7-8229-8aed5b0b55aa">
 
-This repository contains the code to reproduce the results from the manuscript "Protein Language Models capture features of in vivo B cell selection and evolution".
+This repository contains the code to reproduce the results from the manuscript ["Protein Language Models capture features of in vivo B cell selection and evolution"](https://www.biorxiv.org/content/10.1101/2024.12.09.627494v1).
 In this study, we explore foundational and antibody-specific PLMs on partially labeled human and mouse single-cell BCR data in the context of PLM-based pseudolikelihoods.
 
 ### Set up environment
