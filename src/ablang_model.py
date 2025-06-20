@@ -91,7 +91,6 @@ class Ablang():
                     ll_i = np.log(df.iloc[i,:][aa_i])
                     per_position_ll.append(ll_i)
             
-
                 pll_seq = np.average(per_position_ll)
                 pll_all_sequences.append(pll_seq)
             except:

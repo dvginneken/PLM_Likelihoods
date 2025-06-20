@@ -26,3 +26,11 @@ do
     Rscript SourceCorrelation.R $data
     Rscript PLMCorrelation.R $data
 done
+
+#For extra validation data
+datasets=("Mathew" "Kim_extra")
+for mode in "${modes[@]}"
+do
+    python3 pll_calculator.py --dataset=$data --mode="full_VDJ"
+    Rscript pll_concatenate.R $data
+done

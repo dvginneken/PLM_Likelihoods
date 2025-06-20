@@ -6,12 +6,11 @@
 #SBATCH --error=log/CreateVDJ.error
 #SBATCH --output=log/CreateVDJ.out
 
-#Create VDJ-dataframe from CellRanger output using the Platypus package and combine with the heavy chain pseudolikelihoods
+#Create VDJ-dataframe from CellRanger output using the Platypus package
 
 cd scripts
-datasets=("OVA_V7" "horns2020a__VDJ_RAW" "Kim" "Bruhn")
+datasets=("OVA_V7" "horns2020a__VDJ_RAW" "Kim" "Bruhn" "Kim_extra" "Mathew")
 for data in "${datasets[@]}"
 do
     Rscript CreateVDJ.R $data
-    Rscript vdj_pll_combine.R $data
 done

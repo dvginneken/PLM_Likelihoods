@@ -9,7 +9,7 @@
 #Construct lineage trees for all clonotypes in the datasets with an mst-like algorithm (default) and with a maximum parsimony algorithm
 
 cd scripts
-datasets=("OVA_V7" "horns2020a__VDJ_RAW" "Bruhn" "Kim")
+datasets=("OVA_V7" "horns2020a__VDJ_RAW" "Bruhn" "Kim" "Kim_extra" "Mathew")
 methods=("phylo.network.default" "phylo.tree.mp")
 for data in "${datasets[@]}"
   do

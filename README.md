@@ -1,16 +1,14 @@
 # PLM Likelihoods
-<img width="292" alt="image" src="https://github.com/user-attachments/assets/3eed26ce-0674-47d7-8229-8aed5b0b55aa">
-
 This repository contains the code to reproduce the results from the manuscript ["Protein Language Models capture features of in vivo B cell selection and evolution"](https://www.biorxiv.org/content/10.1101/2024.12.09.627494v1).
 In this study, we explore foundational and antibody-specific PLMs on partially labeled human and mouse single-cell BCR data in the context of PLM-based pseudolikelihoods.
 
 ### Set up environment
 1. Install conda environment
    `conda env create -f environment.yml`
-2. Install SRA-toolkit https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit
-3. Install Cell Ranger 8.0.0 https://www.10xgenomics.com/support/software/cell-ranger/latest/tutorials/cr-tutorial-in  
-   Install the reference data https://cf.10xgenomics.com/supp/cell-vdj/refdata-cellranger-vdj-GRCh38-alts-ensembl-7.1.0.tar.gz
-3. Install the R-package Platypus https://github.com/alexyermanos/Platypus
+2. Install [SRA-toolkit](https://github.com/ncbi/sra-tools/wiki/02.-Installing-SRA-Toolkit)
+3. Install [Cell Ranger 8.0.0](https://www.10xgenomics.com/support/software/cell-ranger/latest/tutorials/cr-tutorial-in)
+   Install the [reference data](https://cf.10xgenomics.com/supp/cell-vdj/refdata-cellranger-vdj-GRCh38-alts-ensembl-7.1.0.tar.gz)
+3. Install the R-packages [Platypus](https://github.com/alexyermanos/Platypus) and [AntibodyForests](https://github.com/alexyermanos/AntibodyForests)
 
 ### Input files
 Four publicly available datasets were used for this analysis, all CellRanger output files should be saved in PLM_Likelihoods/data/[dataset_name]/VDJ/[cellranger_output]. 

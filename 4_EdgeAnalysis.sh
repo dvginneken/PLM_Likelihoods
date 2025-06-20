@@ -9,7 +9,7 @@
 #Calculate the per-residue likelihoods of the mutations along the edges of the lineage trees
 
 cd scripts
-datasets=("OVA_V7" "horns2020a__VDJ_RAW" "Kim" "Bruhn")
+datasets=("OVA_V7" "horns2020a__VDJ_RAW" "Kim" "Bruhn" "Kim_extra" "Mathew")
 for data in "${datasets[@]}"
   do
       #Transform AntibodyForests-object into csv

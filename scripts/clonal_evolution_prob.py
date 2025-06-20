@@ -7,8 +7,10 @@ import torch
 
 sys.path.append("../src")
 
+from ESMC_model import ESMc
+from ablang2_model import Ablang2
 from ablang_model import Ablang
-from ESM_model import ESM
+from ESM1b_model import ESM1b
 from sapiens_model import Sapiens
 from protbert import ProtBert
 
@@ -21,8 +23,8 @@ dataset = args.dataset
 method = args.method
 
 #Define models
-model_names = ["ablang","protbert","sapiens","esm"]
-model_classes = [Ablang,ProtBert, Sapiens,ESM]
+model_names = ["ablang1","protbert","sapiens","esm1b","esmc","ablang2"]
+model_classes = [Ablang,ProtBert, Sapiens,ESM1b,ESMc, Ablang2]
 
 #Read edge file
 edges_file = pd.read_csv(os.path.join("..","data",dataset,f"edges_{dataset}_{method}_HC.csv"))
@@ -33,13 +35,17 @@ save_path = os.path.join("..","data",dataset,f"mutational_rank_table_{dataset}_{
 #initiate output table
 output_table = pd.DataFrame()
 
+if not os.path.exists(os.path.join("..","data",dataset,"edges_prob_matrix")):
+    os.mkdir(os.path.join("..","data",dataset,"edges_prob_matrix"))
+
 #Loop over each model
 for j,model in enumerate(model_names):
     
     torch.cuda.empty_cache()
     
+    #initiate model classes
     #initiate model classes (heavy chain)
-    if model == "ablang":
+    if model == "ablang1":
         model_init = Ablang(chain="heavy")
     if model == "sapiens":
         model_init = Sapiens(chain_type="H")
@@ -63,9 +69,14 @@ for j,model in enumerate(model_names):
         
         #Get the position of mutations
         diff_positions = [k for k in range(len(seq_1)) if seq_1[k] != seq_2[k]]
-        
+
         try:
             #Calculate probability matrix (row is position in sequence, column is amino acid)
+            # If model is ablang2 add "|" to the sequence (HC and LC are separated with "|")
+            if model == "ablang2":
+                seq_1 = seq_1 + "|"
+
+            #Calculate the probability matrix
             prob_matrix = model_init.calc_probability_matrix(seq_1)
             temp_path = os.path.join("..","data",dataset,"edges_prob_matrix",f"prob_matrix_edge{i}_{model}_{dataset}_{method}.csv")
             prob_matrix.to_csv(temp_path, index = False)
